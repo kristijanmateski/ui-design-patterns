@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <script>
+        $( function() {
+        $( "#selectable" ).selectable({
+            selected: function( event, ui ) {
+                  $("#select-result").html($('#putSelected').html() + ` ${ui.selected.innerHTML}`);
+              },
+              unselected: function( event, ui ) {
+                  $("#select-result").html("");
+              }
+        });
+
+            $("#add").click(function(){
+                let adding = $("#newItem").val();
+                $("#selectable").append(`<li class="ui-widget-content">${adding}</li>`)
+            })
+            $("#delete").click(function(){
+                $(".ui-selected").detach();
+            })
+        } );
+    </script>
+    <style>
+        #feedback { font-size: 1.4em; }
+        #selectable .ui-selecting { background: green; }
+        #selectable .ui-selected { background: green; color: white; }
+        #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+        #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+  </style>
+    </style>
+</head>
+<body>
+    <label>New Item</label>
+    <input type="text" id="newItem"><br>
+    <input type="button" value="Add new Item" id="add">
+    <input type="button" value="Delete Selected Items" id="delete"><br>
+    <span id="select-result"></span>
+    
+    <ol id="selectable">
+        <li class="ui-widget-content">Item 1</li>
+        <li class="ui-widget-content">Item 2</li>
+        <li class="ui-widget-content">Item 3</li>
+        <li class="ui-widget-content">Item 4</li>
+        <li class="ui-widget-content">Item 5</li>
+        <li class="ui-widget-content">Item 6</li>
+    </ol>
+       
+</body>
+</html>

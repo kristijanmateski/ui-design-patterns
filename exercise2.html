@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#selectable").selectable();
+            $("#date").datepicker();
+            $("#addInfo").click(function(){
+                let name = $("#name").val();
+                let surname = $("#surname").val();
+                let password = $("#password").val();
+                let date = $("#date").val();
+                console.log(date);
+                if(name === "" || surname === "" || password === "" || date === "") {
+                    alert( "Popolni gi site polinja" );
+                    return 0;
+                }
+                if(name === "" && surname === "" && password === "" && date === "") {
+                    $("#name").css("border", "2px solid red");
+                    $("#surname").css("border", "2px solid red");
+                    $("#password").css("border", "2px solid red");
+                    $("#date").css("border", "2px solid red");
+                    return 0;  
+                }
+
+                var selected = []
+                $(".ui-selected").each(function(){
+                    selected.push($(this).text());
+                })
+                console.log(selected)
+                $("#nameInfo").html(name);
+                $("#surnameInfo").html(surname);
+                $("#passInfo").html(password);
+                $("#dateInfo").html(date);
+                $("#hobbiesInfo").html(selected.join(', '));
+
+                $("#dialog").dialog({
+                    modal: true,
+                })
+
+            })
+        })
+    </script>
+    <style>
+        #dialog{display: none;}
+        label{display:inline-block; width: 100px;margin-bottom: 5px;}
+        #feedback { font-size: 1.4em; }
+        #selectable .ui-selecting { background: #FECA40; }
+        #selectable .ui-selected { background: #F39814; color: white; }
+        #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+        #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+    </style>
+</head>
+<body>
+    <label>Name:</label><input type="text" placeholder="Name..." id="name"><br>
+    <label>Surname:</label><input type="text" placeholder="Surname..." id="surname"><br>
+    <label>Password:</label><input type="password" placeholder="Password" id="password"><br>
+    <label>DateOfBirth:</label><input placeholder="Date..." id="date"><br>
+
+    <p>Select your hobbies:</p>
+    <ol id="selectable">
+        <li class="ui-widget-content">Gaming</li>
+        <li class="ui-widget-content">Sports</li>
+        <li class="ui-widget-content">Watching TV</li>
+        <li class="ui-widget-content">Sleeping</li>
+        <li class="ui-widget-content">Hiking</li>
+        <li class="ui-widget-content">Skiing</li>
+        <li class="ui-widget-content">Dancing</li>
+      </ol>
+
+    <button id="addInfo">Add my info</button>
+
+    <div id="dialog" title="User Info">
+        <p>Name:<span id="nameInfo"></span></p>
+        <p>Surname:<span id="surnameInfo"></span></p>
+        <p>Password:<span id="passInfo"></span></p>
+        <p>DateOfBirth:<span id="dateInfo"></span></p>
+        <p>Hobbies:<span id="hobbiesInfo"></span></p>
+    </div>
+</body>
+</html>
